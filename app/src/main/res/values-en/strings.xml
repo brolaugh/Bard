@@ -3,4 +3,5 @@
     <string name="app_name">Bard</string>
     <string name="main_menu_characters">Characters</string>
     <string name="select_dice">Select Dice</string>
+    <string name="roll">Roll</string>
 </resources>

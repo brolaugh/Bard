@@ -3,4 +3,5 @@
     <string name="app_name">Bard</string>
     <string name="main_menu_characters">Karaktärer</string>
     <string name="select_dice">Välj tärning</string>
+    <string name="roll">Slå</string>
 </resources>

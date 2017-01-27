@@ -14,6 +14,10 @@ public class Dice {
         maxRoll  = (short) (Short.parseShort(mRoll));
         numberOfDice = Short.valueOf(nrDice);
     }
+    public short roll(){
+        Random random = new Random();
+        return (short)(random.nextInt(maxRoll)+1);
+    }
     public short rollWithAdvantage(){
         short highestRoll = 0;
         Random random = new Random();

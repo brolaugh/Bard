@@ -18,7 +18,7 @@ import com.brolaugh.bard.datahandler.Dice;
 
 public class SimpleDiceFragment extends Fragment {
     protected View rootView;
-    private int spinnerPosition = 0;
+    private int spinnerPosition = 5;
 
     @Nullable
     @Override
@@ -26,6 +26,7 @@ public class SimpleDiceFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_simple_dice, container, false);
         rootView = view;
         final Spinner spinner = (Spinner) rootView.findViewById(R.id.simpleDiceSpinner);
+        spinner.setSelection(spinnerPosition);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -56,6 +57,10 @@ public class SimpleDiceFragment extends Fragment {
         viber.vibrate(70);
 
         TextView resultText = (TextView) rootView.findViewById(R.id.simpleDiceRollResult);
-        resultText.setText(String.valueOf(roller.rollWithAdvantage()));
+        String rollResult = String.valueOf(roller.roll());
+        resultText.setText(rollResult);
+
+        TextView resultBreakDown = (TextView) rootView.findViewById(R.id.simpleDiceRollResultBreakDown);
+        resultBreakDown.setText("Roll: "+rollResult+" (1"+spinner.getSelectedItem().toString()+")");
     }
 }
