@@ -30,4 +30,12 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="30dp"
         android:layout_marginLeft="30dp" />
+
+    <Button
+        android:id="@+id/mainMenuSimpleDiceButton"
+        android:text="Simple Dice"
+        android:layout_height="87dp"
+        android:layout_width="match_parent"
+        android:tag="main_menu_simple_dice"
+        android:onClick="changeFragment"/>
 </LinearLayout>

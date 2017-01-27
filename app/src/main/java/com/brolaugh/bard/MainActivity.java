@@ -9,6 +9,7 @@ import android.view.View;
 import com.brolaugh.bard.datahandler.Character;
 import com.brolaugh.bard.fragment.CharacterListFragment;
 import com.brolaugh.bard.fragment.MainMenuFragment;
+import com.brolaugh.bard.fragment.SimpleDiceFragment;
 
 import java.util.ArrayList;
 
@@ -24,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentManager = getSupportFragmentManager();
 
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.add(R.id.activity_main, new MainMenuFragment());
+        transaction.replace(R.id.activity_main, new MainMenuFragment());
         transaction.commit();
 
     }
@@ -34,6 +35,9 @@ public class MainActivity extends AppCompatActivity {
         switch (view.getTag().toString()) {
             case "main_menu_characters":
                 transaction.replace(R.id.activity_main, new CharacterListFragment()).addToBackStack("character_list");
+                break;
+            case "main_menu_simple_dice":
+                transaction.replace(R.id.activity_main, new SimpleDiceFragment()).addToBackStack(null);
                 break;
 
         }
