@@ -14,7 +14,7 @@ public class CreateCharacterFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_character_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_create_character, container, false);
         return view;
 
     }
