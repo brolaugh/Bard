@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <Spinner
         android:id="@+id/simpleDiceSpinner"
-        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
+        android:layout_marginTop="5dp"
         android:drawSelectorOnTop="true"
         android:entries="@array/diceOptions"
-        android:prompt="@string/select_dice"
+        android:prompt="@string/select_dice" />
 
-        android:popupBackground="@color/colorGrey"/>
     <Button
         android:id="@+id/rollSimpleDiceButton"
         android:layout_width="match_parent"
@@ -21,6 +20,7 @@
         android:layout_alignParentBottom="true"
         android:text="@string/roll"
         android:textSize="30dp" />
+
     <RelativeLayout
         android:id="@+id/SimpleDiceResultLayout"
         android:layout_width="match_parent"
