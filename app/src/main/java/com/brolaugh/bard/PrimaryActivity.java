@@ -17,6 +17,7 @@ import android.view.MenuItem;
 
 import com.brolaugh.bard.datahandler.Character;
 import com.brolaugh.bard.fragment.CharacterListFragment;
+import com.brolaugh.bard.fragment.CreateCharacterFragment;
 import com.brolaugh.bard.fragment.MainMenuFragment;
 import com.brolaugh.bard.fragment.SimpleDiceFragment;
 
@@ -46,6 +47,7 @@ public class PrimaryActivity extends AppCompatActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        this.setTitle(R.string.app_name);
 
         fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -120,6 +122,9 @@ public class PrimaryActivity extends AppCompatActivity
             case "main_menu_simple_dice":
                 transaction.replace(R.id.content_primary, new SimpleDiceFragment()).addToBackStack(null);
                 navigationView.setCheckedItem(R.id.nav_simple_dice);
+                break;
+            case "character_list_create_character":
+                transaction.replace(R.id.content_primary, new CreateCharacterFragment()).addToBackStack(null);
                 break;
             case "main_menu":
                 transaction.replace(R.id.content_primary, new MainMenuFragment()).addToBackStack(null);
