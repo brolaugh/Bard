@@ -14,7 +14,7 @@
     <string name="background">Background</string>
     <string name="alignment">Alignment</string>
     <string name="player_name">Player Name</string>
-
+    <string name="class_type">Class</string>
 
     <string name="attributes">Attributes</string>
     <string name="general">General</string>
@@ -24,4 +24,5 @@
     <string name="intelligence">Intelligence</string>
     <string name="wisdom">Wisdom</string>
     <string name="charisma">Charisma</string>
+    <string name="create_character_submit">Create Character</string>
 </resources>

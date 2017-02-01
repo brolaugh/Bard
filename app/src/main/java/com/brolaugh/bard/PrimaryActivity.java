@@ -48,7 +48,7 @@ public class PrimaryActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         this.setTitle(R.string.app_name);
-
+        SQLiteConnection.init(this);
         fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.content_primary, new MainMenuFragment());

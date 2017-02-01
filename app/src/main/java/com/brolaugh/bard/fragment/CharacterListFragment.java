@@ -7,9 +7,15 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.brolaugh.bard.PrimaryActivity;
 import com.brolaugh.bard.R;
+import com.brolaugh.bard.SQLiteConnection;
+import com.brolaugh.bard.datahandler.Character;
+
+import java.util.ArrayList;
 
 public class CharacterListFragment extends Fragment {
     @Nullable
@@ -32,7 +38,19 @@ public class CharacterListFragment extends Fragment {
         fab.setMinimumWidth(150);
         fab.setMaxHeight(300);
         fab.setMaxWidth(300);
-
+        LinearLayout layout = (LinearLayout) view.findViewById(R.id.character_list);
+        ArrayList<Character> charactersList = SQLiteConnection.getCharactersLowDetail();
+        for (int i = 0; i < charactersList.size(); i++) {
+            Button characterButton = new Button(getContext());
+            characterButton.setTransformationMethod(null);
+            characterButton.setText(
+                    charactersList.get(i).getName() + " " +
+                            110 + " " +
+                            charactersList.get(i).getRace() + " " +
+                            charactersList.get(i).getClassType()
+            );
+            layout.addView(characterButton);
+        }
         return view;
     }
 }

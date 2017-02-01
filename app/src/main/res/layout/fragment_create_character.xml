@@ -29,7 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <EditText
+                <android.support.design.widget.TextInputEditText
                     android:id="@+id/character_name_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -44,7 +44,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <EditText
+                <android.support.design.widget.TextInputEditText
 
                     android:id="@+id/character_race_input"
                     android:layout_width="match_parent"
@@ -54,11 +54,24 @@
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
+                android:id="@+id/character_class_input_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/character_class_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/class_type"
+                    android:inputType="text" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
                 android:id="@+id/character_background_input_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <EditText
+                <android.support.design.widget.TextInputEditText
                     android:id="@+id/character_background_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -71,7 +84,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <EditText
+                <android.support.design.widget.TextInputEditText
 
                     android:id="@+id/character_alignment_input"
                     android:layout_width="match_parent"
@@ -88,18 +101,19 @@
             android:layout_height="wrap_content"
             android:text="@string/attributes"
             android:textAlignment="textStart" />
+
         <LinearLayout
             android:id="@+id/character_creation_attributes_layout"
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/character_strength_input_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <EditText
+                <android.support.design.widget.TextInputEditText
 
                     android:id="@+id/character_strength_input"
                     android:layout_width="match_parent"
@@ -113,13 +127,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <EditText
+                <android.support.design.widget.TextInputEditText
 
                     android:id="@+id/character_dexterity_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/dexterity"
-                    android:inputType="number"/>
+                    android:inputType="number" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -127,13 +141,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <EditText
+                <android.support.design.widget.TextInputEditText
 
                     android:id="@+id/character_constitution_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/constitution"
-                    android:inputType="number"/>
+                    android:inputType="number" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -141,13 +155,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <EditText
+                <android.support.design.widget.TextInputEditText
 
                     android:id="@+id/character_intelligence_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/intelligence"
-                    android:inputType="number"/>
+                    android:inputType="number" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -155,13 +169,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <EditText
+                <android.support.design.widget.TextInputEditText
 
                     android:id="@+id/character_wisdom_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/wisdom"
-                    android:inputType="number"/>
+                    android:inputType="number" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -169,16 +183,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <EditText
+                <android.support.design.widget.TextInputEditText
 
                     android:id="@+id/character_charisma_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/charisma"
-                    android:inputType="number"/>
+                    android:inputType="number" />
             </android.support.design.widget.TextInputLayout>
         </LinearLayout>
-    </LinearLayout>
 
+        <Button
+            android:id="@+id/create_character_submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/create_character_submit" />
+    </LinearLayout>
 </ScrollView>
 
