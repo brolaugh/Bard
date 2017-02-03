@@ -138,21 +138,6 @@ public class PrimaryActivity extends AppCompatActivity
                     snackbar.show();
                 }
         }
-        if (id == R.id.nav_main_menu) {
-
-        } else if (id == R.id.nav_simple_dice) {
-
-        } else if (id == R.id.nav_character_switch) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_roller) {
-
-        } else if (id == R.id.nav_edit) {
-
-        }else if(id == R.id.nav_inventory){
-
-        }
         transaction.commit();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
