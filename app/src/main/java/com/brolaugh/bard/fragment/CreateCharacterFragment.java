@@ -1,40 +1,23 @@
 package com.brolaugh.bard.fragment;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputEditText;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.support.design.widget.TextInputEditText;
-import android.widget.LinearLayout;
 
+import com.brolaugh.bard.PrimaryActivity;
 import com.brolaugh.bard.R;
 import com.brolaugh.bard.datahandler.Character;
+import com.brolaugh.bard.fragment.CharacterCreationFragment;
 
-public class CreateCharacterFragment extends Fragment {
-    @Nullable
+public class CreateCharacterFragment extends CharacterCreationFragment {
+
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_create_character, container, false);
-        setOnClickCollapsable(view, R.id.character_creation_general_button, R.id.character_creation_general_layout);
-        setOnClickCollapsable(view, R.id.character_creation_attributes_button, R.id.character_creation_attributes_layout);
-
-        Button submitButton = (Button) view.findViewById(R.id.create_character_submit);
-        submitButton.setOnClickListener( new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                createCharacter();
-            }
-        });
-
-        return view;
-
-    }
-    private void createCharacter(){
-        Activity activity = getActivity();
+    protected void saveCharacter() {
+        PrimaryActivity activity = (PrimaryActivity) getActivity();
 
         TextInputEditText characterName = (TextInputEditText) activity.findViewById(R.id.character_name_input);
         TextInputEditText characterRace = (TextInputEditText) activity.findViewById(R.id.character_race_input);
@@ -56,7 +39,7 @@ public class CreateCharacterFragment extends Fragment {
         byte characterWisdomValue = Byte.parseByte(characterWisdom.getText().toString());
         byte characterCharismaValue = Byte.parseByte(characterCharisma.getText().toString());
 
-        Character character =  new Character(
+        Character character = new Character(
                 characterName.getText().toString(),
                 characterRace.getText().toString(),
                 characterClass.getText().toString(),
@@ -68,26 +51,29 @@ public class CreateCharacterFragment extends Fragment {
                 characterIntelligenceValue,
                 characterWisdomValue,
                 characterCharismaValue
-                );
+        );
         character.save();
+        PrimaryActivity.activeCharacter = character;
+
+        //Place the character in the correct position in the characterList
+        for (int i = 0; i <= PrimaryActivity.characterList.size(); i++) {
+            if (i == PrimaryActivity.characterList.size()) {
+                PrimaryActivity.characterList.add(character);
+                break;
+            } else if (i == 0 && PrimaryActivity.characterList.get(i).getName().compareToIgnoreCase(character.getName()) < 0) {
+                PrimaryActivity.characterList.add(0, character);
+                break;
+            } else if (PrimaryActivity.characterList.get(i).getName().compareToIgnoreCase(character.getName()) == 0) {
+                PrimaryActivity.characterList.add(i, character);
+                break;
+            }
+        }
+        View fragmentChanger = new View(getContext());
+        fragmentChanger.setTag("character_view_fragment");
+        activity.changeFragment(fragmentChanger);
+        Snackbar snackbar = Snackbar
+                .make(getView(), "Character Saved", Snackbar.LENGTH_SHORT);
 
     }
-    private void setOnClickCollapsable(View view, int clickView, final int targetView){
-        Button formCollapseButton  = (Button) view.findViewById(clickView);
-        formCollapseButton.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.ic_collapse_00015, 0);
-        formCollapseButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Button clickedButton = (Button) v;
-                LinearLayout layout = (LinearLayout) getActivity().findViewById(targetView);
-                if(layout.getVisibility() == View.VISIBLE){
-                    layout.setVisibility(View.GONE);
-                    clickedButton.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.ic_collapse, 0);
-                }else{
-                    layout.setVisibility(View.VISIBLE);
-                    clickedButton.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.ic_collapse_00015, 0);
-                }
-            }
-        });
-    }
+
 }

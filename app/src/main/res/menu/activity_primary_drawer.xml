@@ -11,25 +11,31 @@
             android:icon="@drawable/ic_menu_gallery"
             android:title="Simple Dice"/>
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_character_switch"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:title="Switch Character" />
         <item
             android:id="@+id/nav_manage"
             android:icon="@drawable/ic_menu_manage"
             android:title="Tools" />
     </group>
 
-    <item android:title="Communicate">
+    <item
+        android:title="Character Name"
+        android:id="@+id/menu_drawer_character_divider">
         <menu>
             <item
-                android:id="@+id/nav_share"
+                android:id="@+id/nav_roller"
                 android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:title="Roll" />
             <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:id="@+id/nav_inventory"
+                android:icon="@drawable/ic_menu_manage"
+                android:title="Inventory"/>
+            <item
+                android:id="@+id/nav_edit"
+                android:icon="@drawable/ic_menu_manage"
+                android:title="Edit" />
         </menu>
     </item>
 

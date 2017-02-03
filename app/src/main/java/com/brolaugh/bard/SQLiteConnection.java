@@ -20,14 +20,13 @@ public class SQLiteConnection {
     private static SQLiteDatabase getConnection(){
         if(database == null || !database.isOpen()){
             database = context.openOrCreateDatabase("bard.db",context.MODE_PRIVATE,null);
-            //database.execSQL("DROP TABLE mix");
 
             database.execSQL("CREATE TABLE IF NOT EXISTS character("+
                     "id INTEGER PRIMARY KEY AUTOINCREMENT,"+
                     " character_name varchar(60),"+
                     " player_name varchar(40),"+
-                    " class varchar(20),"+
                     " race varchar(20)," +
+                    " class varchar(20),"+
                     " level SMALLINT,"+"" +
                     " experience_points INTEGER,"+
                     " background varchar(40),"+
@@ -78,29 +77,40 @@ public class SQLiteConnection {
                     " modifier TINYINT"+
                     ");");
         }
-        //database.execSQL("ALTER TABLE character ADD race varchar(20)");
         return database;
     }
 
-    public static void insertCharacter(Character character){
-        if(character.getId() == 0){
-            getConnection().execSQL("INSERT INTO character("+
-                    "character_name, class, race, background, "+
-                    "alignment, strength, dexterity, constitution, "+
-                    "intelligence, wisdom, charisma)"+
-                    " VALUES(\""+
-                    character.getName() + "\",\"" +
-                    character.getClassType() + "\",\"" +
-                    character.getRace() + "\",\"" +
-                    character.getBackground() + "\",\"" +
-                    character.getAlignment() + "\"," +
-                    character.getStrength() + "," +
-                    character.getDexterity() + "," +
-                    character.getConstitution() + "," +
-                    character.getIntelligence() + "," +
-                    character.getWisdom() + "," +
-                    character.getCharisma()+
-                    ")");
+    public static long insertCharacter(Character character) {
+        if (character.getId() == 0) {
+
+            ContentValues values = new ContentValues(10);
+            values.put("character_name", character.getName());
+            values.put("race", character.getRace());
+            values.put("class", character.getClassType());
+            values.put("background", character.getBackground());
+            values.put("alignment", character.getAlignment());
+            values.put("strength", character.getStrength());
+            values.put("dexterity", character.getDexterity());
+            values.put("constitution", character.getConstitution());
+            values.put("intelligence", character.getIntelligence());
+            values.put("wisdom", character.getWisdom());
+            values.put("charisma", character.getCharisma());
+            return getConnection().insert("character", null, values);
+
+        } else {
+            ContentValues values = new ContentValues(10);
+            values.put("character_name", character.getName());
+            values.put("race", character.getRace());
+            values.put("class", character.getClassType());
+            values.put("background", character.getBackground());
+            values.put("alignment", character.getAlignment());
+            values.put("strength", character.getStrength());
+            values.put("dexterity", character.getDexterity());
+            values.put("constitution", character.getConstitution());
+            values.put("intelligence", character.getIntelligence());
+            values.put("wisdom", character.getWisdom());
+            values.put("charisma", character.getCharisma());
+            return (getConnection().update("character", values, "_id=" + character.getId(), null) == 1) ? character.getId() : 0;
         }
     }
     public static ArrayList<Character> getCharactersLowDetail(){
@@ -116,18 +126,18 @@ public class SQLiteConnection {
         cursor.moveToFirst();
         do {
             Character character = new Character(
-                    cursor.getInt(0),
-                    cursor.getString(1),
-                    cursor.getString(2),
-                    cursor.getString(3),
-                    cursor.getString(4),
-                    cursor.getString(5),
-                    (byte) cursor.getShort(6),
-                    (byte) cursor.getShort(7),
-                    (byte) cursor.getShort(8),
-                    (byte) cursor.getShort(9),
-                    (byte) cursor.getShort(10),
-                    (byte) cursor.getShort(11)
+                    cursor.getInt(0), //id
+                    cursor.getString(1), // character_name
+                    cursor.getString(2), // race
+                    cursor.getString(3), // class
+                    cursor.getString(4), // background
+                    cursor.getString(5), // alignment
+                    (byte) cursor.getShort(6), // strength
+                    (byte) cursor.getShort(7), // dexterity
+                    (byte) cursor.getShort(8), // constitution
+                    (byte) cursor.getShort(9), // intelligence
+                    (byte) cursor.getShort(10), // wisdom
+                    (byte) cursor.getShort(11) // charisma
             );
             characterList.add(character);
 

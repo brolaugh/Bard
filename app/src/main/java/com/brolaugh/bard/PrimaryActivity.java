@@ -1,5 +1,6 @@
 package com.brolaugh.bard;
 
+import android.content.ClipData;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -17,7 +18,9 @@ import android.view.MenuItem;
 
 import com.brolaugh.bard.datahandler.Character;
 import com.brolaugh.bard.fragment.CharacterListFragment;
+import com.brolaugh.bard.fragment.CharacterViewerFragment;
 import com.brolaugh.bard.fragment.CreateCharacterFragment;
+import com.brolaugh.bard.fragment.EditCharacterFragment;
 import com.brolaugh.bard.fragment.MainMenuFragment;
 import com.brolaugh.bard.fragment.SimpleDiceFragment;
 
@@ -26,7 +29,7 @@ import java.util.ArrayList;
 public class PrimaryActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private FragmentManager fragmentManager;
+    public FragmentManager fragmentManager;
     public static Character activeCharacter;
     public static ArrayList<Character> characterList;
     private NavigationView navigationView;
@@ -51,8 +54,10 @@ public class PrimaryActivity extends AppCompatActivity
         SQLiteConnection.init(this);
         fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
+
         transaction.replace(R.id.content_primary, new MainMenuFragment());
         transaction.commit();
+
     }
 
 
@@ -72,6 +77,7 @@ public class PrimaryActivity extends AppCompatActivity
         getMenuInflater().inflate(R.menu.primary, menu);
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -94,17 +100,57 @@ public class PrimaryActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
+        switch (id){
+            case R.id.nav_main_menu:
+                transaction.replace(R.id.content_primary, new MainMenuFragment()).addToBackStack(null);
+                break;
+            case R.id.nav_simple_dice:
+                transaction.replace(R.id.content_primary, new SimpleDiceFragment()).addToBackStack(null);
+                break;
+            case R.id.nav_character_switch:
+                transaction.replace(R.id.content_primary, new CharacterListFragment()).addToBackStack(null);
+                break;
+            case R.id.nav_edit:
+                if(PrimaryActivity.activeCharacter != null){
+                    transaction.replace(R.id.content_primary, new EditCharacterFragment()).addToBackStack(null);
+                }else{
+                    Snackbar snackbar = Snackbar
+                            .make(findViewById(R.id.content_primary), "You need to select a character first", Snackbar.LENGTH_SHORT);
+                    snackbar.show();
+                }
+                break;
+            case R.id.nav_inventory:
+
+                if(PrimaryActivity.activeCharacter != null){
+                    // TODO: Add inventory menu
+                    //transaction.replace(R.id.content_primary, new EditCharacterFragment()).addToBackStack(null);
+                }else{
+                    Snackbar snackbar = Snackbar
+                            .make(findViewById(R.id.content_primary), "You need to select a character first", Snackbar.LENGTH_SHORT);
+                    snackbar.show();
+                }
+            case R.id.nav_roller:
+                if(PrimaryActivity.activeCharacter != null){
+                    //transaction.replace(R.id.content_primary, new EditCharacterFragment()).addToBackStack(null);
+                }else{
+                    Snackbar snackbar = Snackbar
+                            .make(findViewById(R.id.content_primary), "You need to select a character first", Snackbar.LENGTH_SHORT);
+                    snackbar.show();
+                }
+        }
         if (id == R.id.nav_main_menu) {
-            transaction.replace(R.id.content_primary, new MainMenuFragment()).addToBackStack(null);
+
         } else if (id == R.id.nav_simple_dice) {
-            transaction.replace(R.id.content_primary, new SimpleDiceFragment()).addToBackStack(null);
-        } else if (id == R.id.nav_slideshow) {
+
+        } else if (id == R.id.nav_character_switch) {
 
         } else if (id == R.id.nav_manage) {
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_roller) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_edit) {
+
+        }else if(id == R.id.nav_inventory){
 
         }
         transaction.commit();
@@ -130,8 +176,26 @@ public class PrimaryActivity extends AppCompatActivity
                 transaction.replace(R.id.content_primary, new MainMenuFragment()).addToBackStack(null);
                 navigationView.setCheckedItem(R.id.nav_main_menu);
                 break;
-
+            case "character_view_fragment":
+                    transaction.replace(R.id.content_primary, new CharacterViewerFragment()).addToBackStack(null);
+                break;
         }
         transaction.commit();
+    }
+    public Character findCharacterWithID(int id){
+        for(int i = 0; i < characterList.size();i++){
+            if(characterList.get(i).getId() == id){
+                return characterList.get(i);
+            }
+        }
+        return null;
+    }
+    // Enables and disables the character specific menu by hiding that menu when an active character has not been selected
+    public void secureCharacterMenu(){
+        if(PrimaryActivity.activeCharacter == null){
+            findViewById(R.id.menu_drawer_character_divider).setVisibility(View.GONE);
+        }else{
+            findViewById(R.id.menu_drawer_character_divider).setVisibility(View.VISIBLE);
+        }
     }
 }

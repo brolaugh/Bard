@@ -13,9 +13,6 @@ import android.widget.LinearLayout;
 import com.brolaugh.bard.PrimaryActivity;
 import com.brolaugh.bard.R;
 import com.brolaugh.bard.SQLiteConnection;
-import com.brolaugh.bard.datahandler.Character;
-
-import java.util.ArrayList;
 
 public class CharacterListFragment extends Fragment {
     @Nullable
@@ -39,15 +36,29 @@ public class CharacterListFragment extends Fragment {
         fab.setMaxHeight(300);
         fab.setMaxWidth(300);
         LinearLayout layout = (LinearLayout) view.findViewById(R.id.character_list);
-        ArrayList<Character> charactersList = SQLiteConnection.getCharactersLowDetail();
-        for (int i = 0; i < charactersList.size(); i++) {
+
+
+        PrimaryActivity.characterList = SQLiteConnection.getCharactersLowDetail();
+        for (int i = 0; i < PrimaryActivity.characterList.size(); i++) {
             Button characterButton = new Button(getContext());
             characterButton.setTransformationMethod(null);
+            characterButton.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
+            characterButton.setTag(PrimaryActivity.characterList.get(i).getId());
+            characterButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    PrimaryActivity activity = (PrimaryActivity) getActivity();
+                    PrimaryActivity.activeCharacter = activity.findCharacterWithID((Integer) v.getTag());
+                    v.setTag("character_view_fragment");
+                    activity.changeFragment(v);
+
+                }
+            });
             characterButton.setText(
-                    charactersList.get(i).getName() + " " +
+                    PrimaryActivity.characterList.get(i).getName() + " " +
                             110 + " " +
-                            charactersList.get(i).getRace() + " " +
-                            charactersList.get(i).getClassType()
+                            PrimaryActivity.characterList.get(i).getRace() + " " +
+                            PrimaryActivity.characterList.get(i).getClassType()
             );
             layout.addView(characterButton);
         }
