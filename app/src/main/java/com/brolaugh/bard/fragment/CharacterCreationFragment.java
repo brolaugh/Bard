@@ -1,6 +1,7 @@
 package com.brolaugh.bard.fragment;
 
 
+import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
@@ -9,18 +10,39 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import com.brolaugh.bard.R;
 
-public abstract class CharacterCreationFragment extends Fragment{
+public abstract class CharacterCreationFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_create_character, container, false);
         setOnClickCollapsable(view, R.id.character_creation_general_button, R.id.character_creation_general_layout);
         setOnClickCollapsable(view, R.id.character_creation_attributes_button, R.id.character_creation_attributes_layout);
+        setOnClickCollapsable(view, R.id.character_creation_saving_throw_button, R.id.character_creation_saving_throw_layout);
 
+
+        final Button proficiencyAdderButton = (Button) view.findViewById(R.id.create_character_add_proficiency);
+        proficiencyAdderButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View proficiencyAdderButton) {
+                final LinearLayout proficiencyList = (LinearLayout) getActivity().findViewById(R.id.character_creation_saving_throw_layout);
+
+                final LinearLayout proficiencyRow = (LinearLayout) getLayoutInflater(null).inflate(R.layout.create_character_proficiency, proficiencyList, false);
+                proficiencyRow.getChildAt(2).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View deleteProficiencyButton) {
+                        proficiencyList.removeView(proficiencyRow);
+                    }
+                });
+                proficiencyList.removeViewAt(proficiencyList.getChildCount() - 1);
+                proficiencyList.addView(proficiencyRow, proficiencyList.getChildCount());
+                proficiencyList.addView(proficiencyAdderButton);
+            }
+        });
         Button submitButton = (Button) view.findViewById(R.id.create_character_submit);
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -32,6 +54,7 @@ public abstract class CharacterCreationFragment extends Fragment{
         return view;
 
     }
+
 
     abstract protected void saveCharacter();
 

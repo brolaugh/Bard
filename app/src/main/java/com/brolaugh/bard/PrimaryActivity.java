@@ -100,7 +100,7 @@ public class PrimaryActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        switch (id){
+        switch (id) {
             case R.id.nav_main_menu:
                 transaction.replace(R.id.content_primary, new MainMenuFragment()).addToBackStack(null);
                 break;
@@ -111,9 +111,9 @@ public class PrimaryActivity extends AppCompatActivity
                 transaction.replace(R.id.content_primary, new CharacterListFragment()).addToBackStack(null);
                 break;
             case R.id.nav_edit:
-                if(PrimaryActivity.activeCharacter != null){
+                if (PrimaryActivity.activeCharacter != null) {
                     transaction.replace(R.id.content_primary, new EditCharacterFragment()).addToBackStack(null);
-                }else{
+                } else {
                     Snackbar snackbar = Snackbar
                             .make(findViewById(R.id.content_primary), "You need to select a character first", Snackbar.LENGTH_SHORT);
                     snackbar.show();
@@ -121,18 +121,18 @@ public class PrimaryActivity extends AppCompatActivity
                 break;
             case R.id.nav_inventory:
 
-                if(PrimaryActivity.activeCharacter != null){
+                if (PrimaryActivity.activeCharacter != null) {
                     // TODO: Add inventory menu
                     //transaction.replace(R.id.content_primary, new EditCharacterFragment()).addToBackStack(null);
-                }else{
+                } else {
                     Snackbar snackbar = Snackbar
                             .make(findViewById(R.id.content_primary), "You need to select a character first", Snackbar.LENGTH_SHORT);
                     snackbar.show();
                 }
             case R.id.nav_roller:
-                if(PrimaryActivity.activeCharacter != null){
+                if (PrimaryActivity.activeCharacter != null) {
                     //transaction.replace(R.id.content_primary, new EditCharacterFragment()).addToBackStack(null);
-                }else{
+                } else {
                     Snackbar snackbar = Snackbar
                             .make(findViewById(R.id.content_primary), "You need to select a character first", Snackbar.LENGTH_SHORT);
                     snackbar.show();
@@ -162,24 +162,33 @@ public class PrimaryActivity extends AppCompatActivity
                 navigationView.setCheckedItem(R.id.nav_main_menu);
                 break;
             case "character_view_fragment":
+                if (PrimaryActivity.activeCharacter != null) {
                     transaction.replace(R.id.content_primary, new CharacterViewerFragment()).addToBackStack(null);
+                } else {
+                    Snackbar snackbar = Snackbar
+                            .make(findViewById(R.id.content_primary), "You need to select a character first", Snackbar.LENGTH_SHORT);
+                    snackbar.show();
+                }
+
                 break;
         }
         transaction.commit();
     }
-    public Character findCharacterWithID(int id){
-        for(int i = 0; i < characterList.size();i++){
-            if(characterList.get(i).getId() == id){
+
+    public Character findCharacterWithID(int id) {
+        for (int i = 0; i < characterList.size(); i++) {
+            if (characterList.get(i).getId() == id) {
                 return characterList.get(i);
             }
         }
         return null;
     }
+
     // Enables and disables the character specific menu by hiding that menu when an active character has not been selected
-    public void secureCharacterMenu(){
-        if(PrimaryActivity.activeCharacter == null){
+    public void secureCharacterMenu() {
+        if (PrimaryActivity.activeCharacter == null) {
             findViewById(R.id.menu_drawer_character_divider).setVisibility(View.GONE);
-        }else{
+        } else {
             findViewById(R.id.menu_drawer_character_divider).setVisibility(View.VISIBLE);
         }
     }

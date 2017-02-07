@@ -8,4 +8,18 @@
         <item>D20</item>
         <item>D100</item>
     </string-array>
+    <string-array name="proficiency">
+            <item>Strength</item>
+            <item>Dexterity</item>
+            <item>Constitution</item>
+            <item>Intelligence</item>
+            <item>Wisdom</item>
+            <item>Charisma</item>
+            <item>Acrobatics</item>
+            <item>Animal Handling</item>
+            <item>Arcana</item>
+            <item>Athletics</item>
+            <item>Deception</item>
+            <item>History</item>
+    </string-array>
 </resources>

@@ -9,6 +9,25 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <Button
+            android:id="@+id/character_creation_saving_throw_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Saving Throws"
+            android:textAlignment="textStart" />
+
+        <LinearLayout
+            android:id="@+id/character_creation_saving_throw_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <Button
+                android:id="@+id/create_character_add_proficiency"
+                android:drawableLeft="@drawable/ic_playlist_add_black_24dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/add_proficiency"/>
+        </LinearLayout>
 
         <Button
             android:id="@+id/character_creation_general_button"
@@ -192,6 +211,7 @@
                     android:inputType="number" />
             </android.support.design.widget.TextInputLayout>
         </LinearLayout>
+
 
         <Button
             android:id="@+id/create_character_submit"

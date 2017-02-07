@@ -5,4 +5,5 @@
     <string name="select_dice">Select Dice</string>
     <string name="roll">Roll</string>
     <string name="create_character_submit">Create Character</string>
+    <string name="add_proficiency">Add proficiency</string>
 </resources>
