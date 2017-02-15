@@ -49,6 +49,7 @@ public class CharacterListFragment extends Fragment {
                 public void onClick(View v) {
                     PrimaryActivity activity = (PrimaryActivity) getActivity();
                     PrimaryActivity.activeCharacter = activity.findCharacterWithID((Integer) v.getTag());
+                    PrimaryActivity.activeCharacter.completeCharacter();
                     v.setTag("character_view_fragment");
                     activity.changeFragment(v);
 

@@ -5,6 +5,9 @@ import android.util.Log;
 
 import com.brolaugh.bard.SQLiteConnection;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+
 
 public class Character {
     private int id;
@@ -20,6 +23,9 @@ public class Character {
     private byte intelligence;
     private byte wisdom;
     private byte charisma;
+    private ArrayList<SavingSkillProficiency> savingSkillProficiencies = new ArrayList<>();
+
+    private boolean savingSkillModified = false;
 
     public Character(
             String name,
@@ -77,10 +83,30 @@ public class Character {
         this.charisma = charisma;
     }
 
+    public void completeCharacter() {
+        savingSkillProficiencies = SQLiteConnection.getSavingSkillProficiencies(this.id);
+    }
+
     // Save character to database
-    public void save(){
-        Log.d("Character", "Name: "+ this.name + " race" + this.race);
+    public void save() {
+        Log.d("Character", "Name: " + this.name + " race" + this.race);
         SQLiteConnection.insertCharacter(this);
+        if (savingSkillModified) {
+            SQLiteConnection.deleteSavingSkillProficiencies(this.getId());
+            for (int i = 0; i < savingSkillProficiencies.size(); i++) {
+                Log.d("DB spara", savingSkillProficiencies.get(i).getSkill().toString());
+                SQLiteConnection.insertSavingSkillProficiency(savingSkillProficiencies.get(i), id);
+            }
+        }
+    }
+
+    public void addSavingSkillProficiency(SavingSkillProficiency savingSkillProficiency) {
+        savingSkillProficiencies.add(savingSkillProficiency);
+    }
+
+    public void replaceSavingSkillProficiencies(ArrayList<SavingSkillProficiency> savingSkillProficiencyArrayList) {
+        savingSkillProficiencies = savingSkillProficiencyArrayList;
+        savingSkillModified = true;
     }
 
     public byte getConstitution() {
@@ -173,5 +199,9 @@ public class Character {
 
     public void setWisdom(byte wisdom) {
         this.wisdom = wisdom;
+    }
+
+    public ArrayList<SavingSkillProficiency> getSavingSkillProficiencies() {
+        return savingSkillProficiencies;
     }
 }

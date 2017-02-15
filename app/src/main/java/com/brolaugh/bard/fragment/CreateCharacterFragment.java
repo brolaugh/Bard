@@ -4,6 +4,7 @@ package com.brolaugh.bard.fragment;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.brolaugh.bard.PrimaryActivity;
 import com.brolaugh.bard.R;
@@ -48,6 +49,8 @@ public class CreateCharacterFragment extends CharacterCreationFragment {
                 characterWisdomValue,
                 characterCharismaValue
         );
+        LinearLayout savingThrowLayout = (LinearLayout) activity.findViewById(R.id.character_creation_saving_throw_layout);
+        getSavingSkillProficiencies();
         character.save();
         PrimaryActivity.activeCharacter = character;
 
@@ -67,9 +70,7 @@ public class CreateCharacterFragment extends CharacterCreationFragment {
         View fragmentChanger = new View(getContext());
         fragmentChanger.setTag("character_view_fragment");
         activity.changeFragment(fragmentChanger);
-        Snackbar snackbar = Snackbar
-                .make(getView(), "Character Saved", Snackbar.LENGTH_SHORT);
-
+        super.saveCharacter();
     }
 
 }

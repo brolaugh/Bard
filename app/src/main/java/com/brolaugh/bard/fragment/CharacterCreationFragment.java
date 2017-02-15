@@ -1,21 +1,26 @@
 package com.brolaugh.bard.fragment;
 
-
-import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 
 import com.brolaugh.bard.R;
+import com.brolaugh.bard.datahandler.SavingSkillProficiency;
+
+import java.util.ArrayList;
 
 public abstract class CharacterCreationFragment extends Fragment {
+    public static final int spinnerSize = 13;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -56,7 +61,11 @@ public abstract class CharacterCreationFragment extends Fragment {
     }
 
 
-    abstract protected void saveCharacter();
+    protected void saveCharacter(){
+        Snackbar snackbar = Snackbar
+                .make(getView(), "Character Saved", Snackbar.LENGTH_SHORT);
+        snackbar.show();
+    }
 
     protected void clearInputs(View view) {
         TextInputEditText characterName = (TextInputEditText) view.findViewById(R.id.character_name_input);
@@ -72,6 +81,18 @@ public abstract class CharacterCreationFragment extends Fragment {
         TextInputEditText characterWisdom = (TextInputEditText) view.findViewById(R.id.character_wisdom_input);
         TextInputEditText characterCharisma = (TextInputEditText) view.findViewById(R.id.character_charisma_input);
 
+        LinearLayout savingThrowLayout = (LinearLayout) view.findViewById(R.id.character_creation_saving_throw_layout);
+        for(int i = savingThrowLayout.getChildCount()-2; i > 2;i--){
+            if(savingThrowLayout.getChildAt(i).getId() == R.id.create_character_add_proficiency){
+                savingThrowLayout.removeViewAt(i);
+            }
+        }
+        if(savingThrowLayout.getChildCount() > 1){
+            LinearLayout savingThrowRow = (LinearLayout) savingThrowLayout.getChildAt(0);
+            ((Spinner) savingThrowRow.getChildAt(0)).setSelection(0);
+            ((TextInputEditText) savingThrowRow.getChildAt(1)).setText("");
+        }
+
         characterName.setText("");
         characterRace.setText("");
         characterClass.setText("");
@@ -84,6 +105,23 @@ public abstract class CharacterCreationFragment extends Fragment {
         characterIntelligence.setText("");
         characterWisdom.setText("");
         characterCharisma.setText("");
+    }
+
+    public ArrayList<SavingSkillProficiency> getSavingSkillProficiencies(){
+        LinearLayout savingThrowLayout = (LinearLayout) getView().findViewById(R.id.character_creation_saving_throw_layout);
+        ArrayList<SavingSkillProficiency> savingSkillArray = new ArrayList<>();
+        Log.d("Save called", "ye");
+        for(int i = 0; i < savingThrowLayout.getChildCount()-1;i++){
+            LinearLayout row = (LinearLayout) savingThrowLayout.getChildAt(i);
+            String modifierType = ((Spinner)row.getChildAt(0)).getSelectedItem().toString();
+            TextInputLayout til = (TextInputLayout)row.getChildAt(1);
+
+            Byte modifierAmount = Byte.parseByte(til.getEditText().getText().toString());
+            SavingSkillProficiency ssp = new SavingSkillProficiency(modifierType, modifierAmount);
+            savingSkillArray.add(ssp);
+            Log.d("spara", String.valueOf(ssp.getModifierAmount()));
+        }
+        return savingSkillArray;
     }
 
     private void setOnClickCollapsable(View view, int clickView, final int targetView) {
