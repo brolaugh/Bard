@@ -27,4 +27,9 @@
     <string name="create_character_submit">Create Character</string>
     <string name="create_charcter_save">Save character</string>
     <string name="add_proficiency">Add proficiency</string>
+    <string name="skill">Skill</string>
+    <string name="weapon">Weapon</string>
+    <string name="initative">Initative</string>
+    <string name="choose_proficiency">Choose Proficiency</string>
+    <string name="initiative">Initiative</string>
 </resources>

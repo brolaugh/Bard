@@ -6,4 +6,8 @@
     <string name="roll">Roll</string>
     <string name="create_character_submit">Create Character</string>
     <string name="add_proficiency">Add proficiency</string>
+    <string name="skill">Skill</string>
+    <string name="weapon">Weapon</string>
+    <string name="initative">Initative</string>
+    <string name="initiative">Initiative</string>
 </resources>

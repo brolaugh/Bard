@@ -96,6 +96,7 @@ public class SQLiteConnection {
             values.put("intelligence", character.getIntelligence());
             values.put("wisdom", character.getWisdom());
             values.put("charisma", character.getCharisma());
+            values.put("initiative", character.getInitiative());
             return getConnection().insert("character", null, values);
 
         } else {
@@ -111,6 +112,7 @@ public class SQLiteConnection {
             values.put("intelligence", character.getIntelligence());
             values.put("wisdom", character.getWisdom());
             values.put("charisma", character.getCharisma());
+            values.put("initiative", character.getInitiative());
             return (getConnection().update("character", values, "id=" + character.getId(), null) == 1) ? character.getId() : 0;
         }
     }
@@ -120,7 +122,7 @@ public class SQLiteConnection {
                         "id, character_name, race, class, " +
                         "background, alignment, strength, " +
                         "dexterity, constitution, intelligence, " +
-                        "wisdom, charisma " +
+                        "wisdom, charisma, initiative " +
                         "FROM character ORDER BY character_name",
                 null
         );
@@ -142,6 +144,7 @@ public class SQLiteConnection {
                         (byte) cursor.getShort(10), // wisdom
                         (byte) cursor.getShort(11) // charisma
                 );
+                character.setInitiative((byte) cursor.getShort(12));
                 characterList.add(character);
 
             } while (cursor.moveToNext());
@@ -174,7 +177,7 @@ public class SQLiteConnection {
         ContentValues values = new ContentValues(1);
         values.put("character_id", characterID);
         String[] arg = {String.valueOf(characterID)};
-        database.delete("saving_skill_proficiency", "id=?", arg);
+        database.delete("saving_skill_proficiency", "character_id=?", arg);
     }
 
     public static ArrayList<SavingSkillProficiency> getSavingSkillProficiencies(Character character) {

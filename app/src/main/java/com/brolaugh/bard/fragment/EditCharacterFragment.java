@@ -39,6 +39,7 @@ public class EditCharacterFragment extends CharacterCreationFragment {
         TextInputEditText characterIntelligence = (TextInputEditText) view.findViewById(R.id.character_intelligence_input);
         TextInputEditText characterWisdom = (TextInputEditText) view.findViewById(R.id.character_wisdom_input);
         TextInputEditText characterCharisma = (TextInputEditText) view.findViewById(R.id.character_charisma_input);
+        TextInputEditText characterInitiative = (TextInputEditText) view.findViewById(R.id.character_initiative_input);
 
         final LinearLayout savingThrowLayout = (LinearLayout) view.findViewById(R.id.character_creation_saving_throw_layout);
 
@@ -86,6 +87,7 @@ public class EditCharacterFragment extends CharacterCreationFragment {
         characterIntelligence.setText(String.valueOf(PrimaryActivity.activeCharacter.getIntelligence()));
         characterWisdom.setText(String.valueOf(PrimaryActivity.activeCharacter.getWisdom()));
         characterCharisma.setText(String.valueOf(PrimaryActivity.activeCharacter.getCharisma()));
+        characterInitiative.setText(String.valueOf(PrimaryActivity.activeCharacter.getInitiative()));
 
         Button saveButton = (Button) view.findViewById(R.id.create_character_submit);
         saveButton.setText(R.string.create_charcter_save);
@@ -108,6 +110,7 @@ public class EditCharacterFragment extends CharacterCreationFragment {
         TextInputEditText characterIntelligence = (TextInputEditText) activity.findViewById(R.id.character_intelligence_input);
         TextInputEditText characterWisdom = (TextInputEditText) activity.findViewById(R.id.character_wisdom_input);
         TextInputEditText characterCharisma = (TextInputEditText) activity.findViewById(R.id.character_charisma_input);
+        TextInputEditText characterInitiative = (TextInputEditText) activity.findViewById(R.id.character_initiative_input);
 
         PrimaryActivity.activeCharacter.setName(characterName.getText().toString());
         PrimaryActivity.activeCharacter.setRace(characterRace.getText().toString());
@@ -121,6 +124,7 @@ public class EditCharacterFragment extends CharacterCreationFragment {
         PrimaryActivity.activeCharacter.setIntelligence(Byte.parseByte(characterIntelligence.getText().toString()));
         PrimaryActivity.activeCharacter.setWisdom(Byte.parseByte(characterWisdom.getText().toString()));
         PrimaryActivity.activeCharacter.setCharisma(Byte.parseByte(characterCharisma.getText().toString()));
+        PrimaryActivity.activeCharacter.setInitiative(Byte.parseByte(characterInitiative.getText().toString()));
 
 
         PrimaryActivity.activeCharacter.replaceSavingSkillProficiencies(getSavingSkillProficiencies());

@@ -40,4 +40,7 @@ public class Dice {
         }
         return lowestRoll;
     }
+    public String getRolledDice(){
+        return numberOfDice + "D" + maxRoll;
+    }
 }

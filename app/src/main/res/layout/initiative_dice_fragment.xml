@@ -3,18 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Spinner
-        android:id="@+id/simpleDiceSpinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="5dp"
-        android:drawSelectorOnTop="true"
-        android:entries="@array/diceOptions"
-        android:prompt="@string/select_dice"/>
-
     <Button
-        android:id="@+id/rollSimpleDiceButton"
+        android:id="@+id/rollAdvancedDiceButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -25,26 +15,25 @@
         android:id="@+id/SimpleDiceResultLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/rollSimpleDiceButton"
-        android:layout_below="@id/simpleDiceSpinner"
-        android:layout_weight="0.7">
+        android:layout_above="@id/rollAdvancedDiceButton">
 
 
         <TextView
-            android:id="@+id/simpleDiceRollResult"
+            android:id="@+id/advancedDiceRollResult"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:text="14"
             android:textSize="120dp" />
 
         <TextView
-            android:id="@+id/simpleDiceRollResultBreakDown"
+            android:id="@+id/advancedDiceRollResultBreakDown"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/simpleDiceRollResult"
-            android:layout_centerHorizontal="true" />
+            android:layout_below="@+id/advancedDiceRollResult"
+            android:layout_centerHorizontal="true"
+            android:text="" />
 
 
     </RelativeLayout>
 </RelativeLayout>
-

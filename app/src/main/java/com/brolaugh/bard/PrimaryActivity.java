@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.brolaugh.bard.datahandler.Character;
+import com.brolaugh.bard.fragment.AdvancedDiceFragment;
 import com.brolaugh.bard.fragment.CharacterListFragment;
 import com.brolaugh.bard.fragment.CharacterViewerFragment;
 import com.brolaugh.bard.fragment.CreateCharacterFragment;
@@ -131,7 +132,7 @@ public class PrimaryActivity extends AppCompatActivity
                 }
             case R.id.nav_roller:
                 if (PrimaryActivity.activeCharacter != null) {
-                    //transaction.replace(R.id.content_primary, new EditCharacterFragment()).addToBackStack(null);
+                    transaction.replace(R.id.content_primary, new AdvancedDiceFragment()).addToBackStack(null);
                 } else {
                     Snackbar snackbar = Snackbar
                             .make(findViewById(R.id.content_primary), "You need to select a character first", Snackbar.LENGTH_SHORT);

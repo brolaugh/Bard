@@ -28,6 +28,7 @@ public class CreateCharacterFragment extends CharacterCreationFragment {
         TextInputEditText characterIntelligence = (TextInputEditText) activity.findViewById(R.id.character_intelligence_input);
         TextInputEditText characterWisdom = (TextInputEditText) activity.findViewById(R.id.character_wisdom_input);
         TextInputEditText characterCharisma = (TextInputEditText) activity.findViewById(R.id.character_charisma_input);
+        TextInputEditText characterInitiative = (TextInputEditText) activity.findViewById(R.id.character_initiative_input);
 
         byte characterStrengthValue = Byte.parseByte(characterStrength.getText().toString());
         byte characterDexterityValue = Byte.parseByte(characterDexterity.getText().toString());
@@ -35,6 +36,7 @@ public class CreateCharacterFragment extends CharacterCreationFragment {
         byte characterIntelligenceValue = Byte.parseByte(characterIntelligence.getText().toString());
         byte characterWisdomValue = Byte.parseByte(characterWisdom.getText().toString());
         byte characterCharismaValue = Byte.parseByte(characterCharisma.getText().toString());
+        byte characterInitiativeValue = Byte.parseByte(characterInitiative.getText().toString());
 
         Character character = new Character(
                 characterName.getText().toString(),
@@ -49,6 +51,7 @@ public class CreateCharacterFragment extends CharacterCreationFragment {
                 characterWisdomValue,
                 characterCharismaValue
         );
+        character.setInitiative(characterInitiativeValue);
         LinearLayout savingThrowLayout = (LinearLayout) activity.findViewById(R.id.character_creation_saving_throw_layout);
         getSavingSkillProficiencies();
         character.save();

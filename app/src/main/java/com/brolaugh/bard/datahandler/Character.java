@@ -24,6 +24,7 @@ public class Character {
     private byte wisdom;
     private byte charisma;
     private ArrayList<SavingSkillProficiency> savingSkillProficiencies = new ArrayList<>();
+    private byte initiative;
 
     private boolean savingSkillModified = false;
 
@@ -92,6 +93,7 @@ public class Character {
         Log.d("Character", "Name: " + this.name + " race" + this.race);
         SQLiteConnection.insertCharacter(this);
         if (savingSkillModified) {
+            Log.d("DB", "delete");
             SQLiteConnection.deleteSavingSkillProficiencies(this.getId());
             for (int i = 0; i < savingSkillProficiencies.size(); i++) {
                 Log.d("DB spara", savingSkillProficiencies.get(i).getSkill().toString());
@@ -107,6 +109,43 @@ public class Character {
     public void replaceSavingSkillProficiencies(ArrayList<SavingSkillProficiency> savingSkillProficiencyArrayList) {
         savingSkillProficiencies = savingSkillProficiencyArrayList;
         savingSkillModified = true;
+    }
+
+    public ArrayList<SavingSkillProficiency> querySavingSkills(SavingSkillProficiency queryProficiency){
+        LinkedList<SavingSkillProficiency> matches = new LinkedList<>();
+        for(int i = 0; i < savingSkillProficiencies.size(); i++){
+            if(savingSkillProficiencies.get(i).getModifierType().equals(queryProficiency.getModifierType())){
+                matches.add(savingSkillProficiencies.get(i));
+            }
+        }
+        return new ArrayList<SavingSkillProficiency>(matches);
+    }
+
+    public byte getSkillToValue(Skill skill){
+        switch (skill){
+            case CHARISMA:
+                return charisma;
+            case STRENGTH:
+                return strength;
+            case CONSTITUTION:
+                return constitution;
+            case WISDOM:
+                return  wisdom;
+            case INTELLIGENCE:
+                return intelligence;
+            case DEXTERITY:
+                return dexterity;
+            default:
+                return 0;
+        }
+    }
+
+    public byte getInitiative() {
+        return initiative;
+    }
+
+    public void setInitiative(byte initiative) {
+        this.initiative = initiative;
     }
 
     public byte getConstitution() {
@@ -203,5 +242,9 @@ public class Character {
 
     public ArrayList<SavingSkillProficiency> getSavingSkillProficiencies() {
         return savingSkillProficiencies;
+    }
+    public static byte SkillToModifier(int skillValue){
+        double rawResult = (skillValue-10)/2;
+        return (byte) Math.floor(rawResult);
     }
 }
